@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>this is my website</title>
+</head>
+<body>
+<header>
+    <h1>{%block header%}{%endblock%}</h1>
+</header>
+<nav>
+    <ul>
+    <li><a href = "{{ url_for('home')}}">Home</a><li>
+    <li><a href = "{{ url_for('about')}}">About</a><li>
+    <li><a href = "{{ url_for('contact')}}">Contact</a><li>
+    <br>
+    <br>
+    </ul>
+</nav>
+<main>
+    {%block main%}{%endblock%}
+</main>
+<footer>
+    <br>
+    <h1>&copy; my company 2026</h1>
+</footer>
+
+</body>
+</html>

@@ -1,5 +1,3 @@
-from tkinter.font import names
-
 from flask import Flask, render_template, request, redirect, url_for
 from datetime import datetime
 from forms import *
@@ -24,18 +22,18 @@ def index():
     form = StudentListForm
     studentlist = Students.query.all
     return render_template('index.html')
-
-@app.route('/add', methods=['GET', 'POST'])
-def add ():
-    form = AddStudent
-
-    if form.validate_on_submit():
-        studentsdetails = Students(name=form.name.data, email=form.email.data, course=form.course.data,
-                                   value=form.value.data, date=form.date.data)
-        db.session.add(studentsdetails)
-        db.session.commit()
-        return redirect(url_for('index'))
-    return render_template('add.html', form=form)
+#
+# @app.route('/add', methods=['GET', 'POST'])
+# def add ():
+#     form = AddStudent
+#
+#     if form.validate_on_submit():
+#         studentsdetails = Students(name=form.name.data, email=form.email.data, course=form.course.data,
+#                                    value=form.value.data, date=form.date.data)
+#         db.session.add(studentsdetails)
+#         db.session.commit()
+#         return redirect(url_for('index'))
+#     return render_template('add.html', form=form)
 
 
 

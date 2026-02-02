@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from datetime import datetime
 from forms import *
 from models import *
@@ -22,18 +22,55 @@ def index():
     form = StudentListForm
     studentlist = Students.query.all
     return render_template('index.html')
-#
-# @app.route('/add', methods=['GET', 'POST'])
-# def add ():
-#     form = AddStudent
-#
-#     if form.validate_on_submit():
-#         studentsdetails = Students(name=form.name.data, email=form.email.data, course=form.course.data,
-#                                    value=form.value.data, date=form.date.data)
-#         db.session.add(studentsdetails)
-#         db.session.commit()
-#         return redirect(url_for('index'))
-#     return render_template('add.html', form=form)
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    userlist = User.query.all()
+    if form.validate_on_submit():
+        user = User(username=form.username.data,password=form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('register.html', form=form, userlist=userlist)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user and User.password == form.password.data:
+            session["user_id"] = user.id
+            return redirect (url_for('profile'))
+    return render_template('login.html')
+
+
+@app.route('/logout')
+def logout():
+    session.pop('user_id')
+    return redirect(url_for('login'))
+
+@app.route('/profile', methods=['GET', 'POST'])
+def profile():
+    return render_template('profile.html')
+
+@app.route('/add_note', methods=['GET', 'POST'])
+def addnote():
+    return render_template('add_note.html')
+
+
+@app.route('/add', methods=['GET', 'POST'])
+def add ():
+    form = AddStudent
+
+    if form.validate_on_submit():
+        studentsdetails = Students(name=form.name.data, email=form.email.data, course=form.course.data,
+                                   value=form.value.data, date=form.date.data)
+        db.session.add(studentsdetails)
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('add.html', form=form)
 
 
 

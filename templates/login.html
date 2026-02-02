@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
-</body>
-</html>
+{% extends "base.html" %}
+{%block header%}this is Index page !{%endblock%}
+{%block main%}
+<h1> ავტორიზაცია </h1>
+<form method="POST">
+    {{ form.username(class="form-control mb-2") }}
+    {{ form.password(class="form-control mb-2") }}
+    {{ form.submit(class="btn btn-success") }}
+</form>
+
+{%endblock%}
+

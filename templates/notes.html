@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
-</body>
-</html>
+
+
+{% extends "base.html" %}
+{%block header%}this is Index page !{%endblock%}
+{%block main%}
+<h1> Mynotes </h1>
+{% for note in notes %}
+    <p>{{ note.title }}</p>
+{% else %}
+    <p>No notes yet.</p>
+{% endfor %}
+{%endblock%}
